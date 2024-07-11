@@ -167,13 +167,14 @@
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Renderer\Window.cpp" />
     <ClCompile Include="Renderer\Texture.cpp" />
+    <ClCompile Include="Core\Time.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Preprocessor.h" />
     <ClInclude Include="GameObject\Camera.h" />
     <ClInclude Include="Core\Log.h" />
     <ClInclude Include="Core\Input.h" />
     <ClInclude Include="GameObject\GameObject.h" />
-    <ClInclude Include="GameObject\Vector3.h" />
     <ClInclude Include="MainIncludes.h" />
     <ClInclude Include="GameObject\Model3D.h" />
     <ClInclude Include="GameObject\Object.h" />
@@ -183,6 +184,7 @@
     <ClInclude Include="Renderer\Shader.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="Renderer\Texture.h" />
+    <ClInclude Include="Core\Time.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\basic.frag" />

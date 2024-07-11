@@ -2,6 +2,7 @@
 
 namespace Engine
 {
+	Mouse Engine::Input::s_Mouse;
 	int Engine::Input::s_Horizontal;
 	int Engine::Input::s_Vertical;
 	bool Engine::Input::s_Quit = false;
@@ -23,6 +24,11 @@ namespace Engine
 			case SDL_WINDOWEVENT:
 				if (s_Event.window.event == SDL_WINDOWEVENT_RESIZED)
 					s_WindowResized = true;
+				break;
+			case SDL_MOUSEMOTION:
+				s_Mouse.x = (float)s_Event.motion.xrel;
+				s_Mouse.y = (float)s_Event.motion.yrel;
+				break;
 			}
 		}
 
@@ -38,6 +44,7 @@ namespace Engine
 			SetHorizontal(HORIZONTAL_AXIS_RIGHT);
 		if (!(KEYBOARD_STATES[SDL_SCANCODE_LEFT] || KEYBOARD_STATES[SDL_SCANCODE_A]) && !(KEYBOARD_STATES[SDL_SCANCODE_RIGHT] || KEYBOARD_STATES[SDL_SCANCODE_D]))
 			SetHorizontal(0);
+
 	}
 
 	void Input::SetHorizontal(int direction)
@@ -56,12 +63,33 @@ namespace Engine
 		s_Vertical = direction;
 	}
 
-	bool Input::GetKey(SDL_Scancode key)
+	Mouse Input::GetMousePosition()
+	{
+		return s_Mouse;
+	}
+
+	Mouse Input::GetMouseAxis()
+	{
+		Mouse mouse;
+		//int mouseX, mouseY;
+		//static int prevMouseX = 0, prevMouseY = 0;
+
+
+		mouse.y = s_Event.motion.yrel;
+		mouse.x = s_Event.motion.xrel;
+		
+		//prevMouseX = mouseX;
+		//prevMouseY = mouseY;
+
+		return mouse;
+	}
+
+	bool Input::GetKey(SDL_Scancode key) // Always works while the key is pressed
 	{
 		return KEYBOARD_STATES[key];
 	}
 
-	bool Input::GetKeyDown(SDL_Scancode key)
+	bool Input::GetKeyDown(SDL_Scancode key) // Triggered once while the key is pressed
 	{
 		bool currentState = KEYBOARD_STATES[key];
 
@@ -76,7 +104,7 @@ namespace Engine
 		return false;
 	}
 
-	bool Input::GetKeyUp(SDL_Scancode key)
+	bool Input::GetKeyUp(SDL_Scancode key) // Triggered once while the key is pressed
 	{
 		bool currentState = KEYBOARD_STATES[key];
 

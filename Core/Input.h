@@ -3,6 +3,12 @@
 
 namespace Engine
 {
+	struct Mouse
+	{
+		float x;
+		float y;
+	};
+
 	class Input
 	{
 	public:
@@ -11,6 +17,8 @@ namespace Engine
 		static void SetVertical(int value);
 		static int GetHorizontal() { return s_Horizontal; }
 		static int GetVertical() { return s_Vertical; }
+		static Mouse GetMousePosition();
+		static Mouse GetMouseAxis();
 		static bool GetKey(SDL_Scancode key);
 		static bool GetKeyDown(SDL_Scancode key);
 		static bool GetKeyUp(SDL_Scancode key);
@@ -24,6 +32,7 @@ namespace Engine
 		static bool s_Quit;
 		static int s_Horizontal;
 		static int s_Vertical;
+		static Mouse s_Mouse;
 	};
 }
 

@@ -11,6 +11,8 @@ namespace GLInit
 
 	void InitializeBuffers(unsigned int &VBO, unsigned int& VAO, unsigned int& EBO, const float* vertices, const unsigned int* indices)
 	{
+		glEnable(GL_CULL_FACE);
+		glFrontFace(GL_CW);
 		glGenVertexArrays(1, &VAO);
 		glGenBuffers(1, &VBO);
 		glGenBuffers(1, &EBO);

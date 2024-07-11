@@ -1,6 +1,7 @@
 #include "Window.h"
 #include "format"
 #include "../Core/Input.h"
+#include "../Core/Time.h"
 #include "ConfigGL.h"
 
 
@@ -13,6 +14,7 @@ namespace Engine
 
 	Window::Window(std::string title, int width, int height)
 	{
+
 	}
 
 	Window::~Window()
@@ -46,7 +48,8 @@ namespace Engine
 			ENGINE_CORE_WARN("Couldn't init JPG library");
 
 		m_Window = SDL_CreateWindow(m_Title.c_str(), 0, 100, m_Width, m_Height, SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL | SDL_WINDOW_RESIZABLE);
-
+		SDL_SetRelativeMouseMode(SDL_TRUE);
+		SDL_SetWindowMouseRect(m_Window, NULL);
 		if (m_Window == NULL)
 		{
 			ENGINE_CORE_FATAL(std::format("Window could not be created! SDL Error: {}", SDL_GetError()));
@@ -117,7 +120,7 @@ namespace Engine
 		gameObject2.SetTexture(texture);
 
 		camera.SetPerpectiveProjection(m_Width, m_Height);
-		camera.SetPosition(glm::vec3(0.f, 0.f, -5.f));
+		camera.SetPosition(glm::vec3(0.f, 0.f, 5.f));
 
 		ENGINE_CORE_INFO("Render has been created");
 		ENGINE_CORE_OK("Everything was running");
@@ -135,10 +138,27 @@ namespace Engine
 	{
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		Input::ReadInputEvents();
+		Time::SetDeltaTime();
 
-		camera.SetPosition({ 0.4 * cos(((SDL_GetTicks()/1000.f)) * 0.3), 0.f, 5.f * sin(((SDL_GetTicks() / 1000.f)) * 0.3) });
-		camera.SetObjectMatrix(glm::lookAt(camera.GetPosition(), camera.GetTarget(), { 0.f,1.f,0.f }));
+		Mouse deltaMouse = Input::GetMouseAxis();
+
+		if (Input::GetKeyDown(SDL_SCANCODE_1))
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+		}
+		if (Input::GetKeyDown(SDL_SCANCODE_2))
+		{
+			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+		}
+
+		if (Input::GetMousePosition().x > 0)
+			ENGINE_CORE_INFO(std::format("position vec3 {} {} {}", Input::GetMousePosition().x, Input::GetMousePosition().y, camera.GetPosition().z));
+
+		camera.SetPosition(glm::vec3{Input::GetHorizontal(), 0.f, Input::GetVertical()});
+		camera.Rotate(Input::GetMousePosition().x * Time::GetDeltaTime(), Input::GetMousePosition().y * Time::GetDeltaTime());
+		camera.OnUpdate();
 		
 		glm::vec3 rotation(-0.005, 0.001, 0);
 		gameObject1.SetRotation(rotation);
