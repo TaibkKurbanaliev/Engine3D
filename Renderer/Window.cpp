@@ -101,9 +101,22 @@ namespace Engine
 			5,7,6
 		};
 
-		// отрефакторить код ниже
+		glCreateVertexArrays(1, &VAO_polygon);
+		glBindVertexArray(VAO_polygon);
+
+		BufferLayout* layout = new BufferLayout{
+			{ ShaderDataType::Float3, "aPos"},
+			{ ShaderDataType::Float3, "inColors"},
+			{ ShaderDataType::Float2, "inTextureCoords"}
+		};
 		
-		GLInit::InitializeBuffers(VBO_polygon, VAO_polygon, EBO_polygon, vertices, indices);
+		m_IndexBuffer = std::make_unique<Engine::IndexBuffer>(indices, sizeof(indices) / sizeof(uint32_t));
+		m_VertexBuffer = std::make_unique<Engine::VertexBuffer>(vertices, sizeof(vertices));
+
+		m_VertexBuffer->SetLayout(*layout);
+		 //отрефакторить код ниже
+		GLInit::InitializeBuffers(*m_VertexBuffer, *m_IndexBuffer);
+		//GLInit::InitializeBuffers(VBO_polygon, VAO_polygon, EBO_polygon, vertices, indices);
 
 		model = std::make_shared<Model3D>("C:\\Users\\Kek\\Desktop\\CPP\\OpenGL Shooter\\Shaders\\Basic.vert", "C:\\Users\\Kek\\Desktop\\CPP\\OpenGL Shooter\\Shaders\\basic.frag");
 		gameObject1.SetModel(model);
@@ -138,7 +151,7 @@ namespace Engine
 	{
 		
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClearColor(0.0f, 1.0f, 0.0f, 1.0f);
 		Input::ReadInputEvents();
 		Time::SetDeltaTime();
 

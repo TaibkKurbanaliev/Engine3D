@@ -8,6 +8,8 @@
 #include "glm/mat4x4.hpp"
 #include "../GameObject/GameObject.h"
 #include "Renderer.h"
+#include "Buffer.h"
+
 
 namespace Engine
 {
@@ -24,6 +26,8 @@ namespace Engine
 		void WindowUpdate();
 	private:
 		unsigned int VBO_polygon, VAO_polygon, EBO_polygon;
+		std::unique_ptr<Engine::VertexBuffer> m_VertexBuffer;
+		std::unique_ptr<Engine::IndexBuffer> m_IndexBuffer;
 		SDL_Window* m_Window = NULL;
 		std::unique_ptr<Renderer> m_Renderer;
 		std::unique_ptr<Shader> m_Shader;
