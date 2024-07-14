@@ -8,7 +8,7 @@
 #include "glm/mat4x4.hpp"
 #include "../GameObject/GameObject.h"
 #include "Renderer.h"
-#include "Buffer.h"
+#include "VertexArray.h"
 
 
 namespace Engine
@@ -26,12 +26,13 @@ namespace Engine
 		void WindowUpdate();
 	private:
 		unsigned int VBO_polygon, VAO_polygon, EBO_polygon;
-		std::unique_ptr<Engine::VertexBuffer> m_VertexBuffer;
-		std::unique_ptr<Engine::IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<VertexBuffer> m_VertexBuffer;
+		std::shared_ptr<IndexBuffer> m_IndexBuffer;
+		std::shared_ptr<VertexArray> m_VertexArray;
 		SDL_Window* m_Window = NULL;
 		std::unique_ptr<Renderer> m_Renderer;
 		std::unique_ptr<Shader> m_Shader;
-		std::string m_Title = "GhostEngine";
+		std::string m_Title = "OPENGL";
 		int m_Width = 1920;
 		int m_Height = 1080;
 

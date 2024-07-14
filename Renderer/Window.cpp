@@ -2,7 +2,6 @@
 #include "format"
 #include "../Core/Input.h"
 #include "../Core/Time.h"
-#include "ConfigGL.h"
 
 
 namespace Engine
@@ -101,8 +100,7 @@ namespace Engine
 			5,7,6
 		};
 
-		glCreateVertexArrays(1, &VAO_polygon);
-		glBindVertexArray(VAO_polygon);
+		m_VertexArray = std::make_shared<VertexArray>();
 
 		BufferLayout* layout = new BufferLayout{
 			{ ShaderDataType::Float3, "aPos"},
@@ -110,13 +108,15 @@ namespace Engine
 			{ ShaderDataType::Float2, "inTextureCoords"}
 		};
 		
-		m_IndexBuffer = std::make_unique<Engine::IndexBuffer>(indices, sizeof(indices) / sizeof(uint32_t));
-		m_VertexBuffer = std::make_unique<Engine::VertexBuffer>(vertices, sizeof(vertices));
+		m_IndexBuffer = std::make_shared<IndexBuffer>(indices, sizeof(indices) / sizeof(uint32_t));
+		m_VertexBuffer = std::make_shared<VertexBuffer>(vertices, sizeof(vertices));
 
 		m_VertexBuffer->SetLayout(*layout);
-		 //отрефакторить код ниже
-		GLInit::InitializeBuffers(*m_VertexBuffer, *m_IndexBuffer);
-		//GLInit::InitializeBuffers(VBO_polygon, VAO_polygon, EBO_polygon, vertices, indices);
+
+		m_VertexArray->AddVertexBuffer(m_VertexBuffer);
+		m_VertexArray->SetIndexBuffer(m_IndexBuffer);
+
+		glFrontFace(GL_CW);
 
 		model = std::make_shared<Model3D>("C:\\Users\\Kek\\Desktop\\CPP\\OpenGL Shooter\\Shaders\\Basic.vert", "C:\\Users\\Kek\\Desktop\\CPP\\OpenGL Shooter\\Shaders\\basic.frag");
 		gameObject1.SetModel(model);
@@ -165,6 +165,14 @@ namespace Engine
 		{
 			glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		}
+		if (Input::GetKeyDown(SDL_SCANCODE_3))
+		{
+			glEnable(GL_CULL_FACE);
+		}
+		if (Input::GetKeyDown(SDL_SCANCODE_4))
+		{
+			glDisable(GL_CULL_FACE);
+		}
 
 		if (Input::GetMousePosition().x > 0)
 			ENGINE_CORE_INFO(std::format("position vec3 {} {} {}", Input::GetMousePosition().x, Input::GetMousePosition().y, camera.GetPosition().z));
@@ -176,12 +184,12 @@ namespace Engine
 		glm::vec3 rotation(-0.005, 0.001, 0);
 		gameObject1.SetRotation(rotation);
 		m_Renderer->Draw(camera, gameObject1);
-		glBindVertexArray(VAO_polygon);
+		glBindVertexArray(m_VertexArray->GetRendererID());
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 
 		rotation = { 0.005, -0.001, 0 };
 		gameObject2.SetRotation(rotation);
-		glBindVertexArray(VAO_polygon);
+		glBindVertexArray(m_VertexArray->GetRendererID());
 		m_Renderer->Draw(camera, gameObject2);
 		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
 

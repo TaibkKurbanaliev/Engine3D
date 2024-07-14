@@ -165,6 +165,7 @@
     <ClCompile Include="GameObject\Object.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
     <ClCompile Include="Renderer\Shader.cpp" />
+    <ClCompile Include="Renderer\VertexArray.cpp" />
     <ClCompile Include="Source.cpp" />
     <ClCompile Include="Renderer\Window.cpp" />
     <ClCompile Include="Renderer\Texture.cpp" />
@@ -181,7 +182,7 @@
     <ClInclude Include="GameObject\Model3D.h" />
     <ClInclude Include="GameObject\Object.h" />
     <ClInclude Include="Renderer\Renderer.h" />
-    <ClInclude Include="Renderer\ConfigGL.h" />
+    <ClInclude Include="Renderer\VertexArray.h" />
     <ClInclude Include="Renderer\Window.h" />
     <ClInclude Include="Renderer\Shader.h" />
     <ClInclude Include="stb_image.h" />

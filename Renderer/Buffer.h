@@ -30,13 +30,15 @@ namespace Engine
 		return 0;
 	}
 
+	
+
 	struct BufferElement
 	{
 		std::string Name;
 		ShaderDataType Type;
 		uint32_t Size;
 		size_t Offset;
-		bool Normalized;
+		bool Normalized = false;
 
 		BufferElement() = default;
 
