@@ -104,6 +104,7 @@ namespace Engine
 
 		BufferLayout* layout = new BufferLayout{
 			{ ShaderDataType::Float3, "aPos"},
+			{ ShaderDataType::Float3, "inNormals"},
 			{ ShaderDataType::Float3, "inColors"},
 			{ ShaderDataType::Float2, "inTextureCoords"}
 		};
@@ -183,16 +184,12 @@ namespace Engine
 		
 		glm::vec3 rotation(-0.005, 0.001, 0);
 		gameObject1.SetRotation(rotation);
-		m_Renderer->Draw(camera, gameObject1);
-		glBindVertexArray(m_VertexArray->GetRendererID());
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
+		m_Renderer->Draw(camera, gameObject1, m_VertexArray);
+		
 
 		rotation = { 0.005, -0.001, 0 };
 		gameObject2.SetRotation(rotation);
-		glBindVertexArray(m_VertexArray->GetRendererID());
-		m_Renderer->Draw(camera, gameObject2);
-		glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT, 0);
-
+		m_Renderer->Draw(camera, gameObject2, m_VertexArray);
 		SDL_GL_SwapWindow(m_Window);
 	}
 }

@@ -2,7 +2,8 @@
 
 layout (location = 0) in vec3 aPos;
 layout (location = 1) in vec4 inColors;
-layout (location = 2) in vec2 inTextureCoords;
+layout (location = 2) in vec3 inNormal;
+layout (location = 3) in vec2 inTextureCoords;
 
 out vec4 vertColor;
 out vec2 textureCoords;

@@ -1,0 +1,10 @@
+[submodule "OpenGL Shooter/vendor/assimp"]
+	path = OpenGL Shooter/vendor/assimp
+	url = https://github.com/assimp/assimp
+[submodule "vendor/assimp"]
+	path = vendor/assimp
+	url = https://github.com/assimp/assimp
+[submodule "vendor/sdl"]
+	path = vendor/sdl
+	url = https://github.com/libsdl-org/SDL.git
+	branch = SDL2

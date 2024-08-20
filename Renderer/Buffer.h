@@ -1,5 +1,6 @@
 #pragma once
 #include <glad/glad.h>
+#include <glm/glm.hpp>
 #include "../MainIncludes.h"
 
 namespace Engine
@@ -30,7 +31,13 @@ namespace Engine
 		return 0;
 	}
 
-	
+	struct Vertex
+	{
+		glm::vec4 Color;
+		glm::vec3 Position;
+		glm::vec3 Normal;
+		glm::vec2 Texture;
+	};
 
 	struct BufferElement
 	{
@@ -111,6 +118,7 @@ namespace Engine
 		BufferLayout m_Layout;
 	public:
 		VertexBuffer(float* data, size_t size);
+		VertexBuffer(Vertex* vertices, size_t size);
 		~VertexBuffer();
 
 		const BufferLayout& GetLayout() const { return m_Layout; };
@@ -121,9 +129,11 @@ namespace Engine
 	{
 	private:
 		uint32_t m_RendererID;
+		uint32_t m_Count;
 	public:
 		IndexBuffer(uint32_t* data, size_t size);
 		~IndexBuffer();
+		uint32_t GetCount() const { return m_Count; }
 	};
 }
 
