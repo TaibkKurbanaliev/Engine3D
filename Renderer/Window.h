@@ -40,7 +40,6 @@ namespace Engine
 		GameObject gameObject2;
 		Camera camera;
 
-		std::shared_ptr<Model3D> model;
 	};
 }
 

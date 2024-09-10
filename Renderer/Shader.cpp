@@ -47,7 +47,7 @@ namespace Engine
 		glAttachShader(m_ProgramID, fragmentShader);
 		glLinkProgram(m_ProgramID);
 		glUseProgram(m_ProgramID);
-		CheckCompileError(m_ProgramID, Engine::Programm);
+		CheckCompileError(m_ProgramID, Programm);
 	}
 
 	std::string Shader::ReadShaderFile(const char* path)
@@ -84,7 +84,7 @@ namespace Engine
 		return source.c_str();
 	}
 
-	void Shader::CheckCompileError(unsigned int shader, Engine::ShaderType type)
+	void Shader::CheckCompileError(unsigned int shader, ShaderType type)
 	{
 		int success;
 		char infoLog[1024];

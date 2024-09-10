@@ -4,11 +4,11 @@
 namespace Engine
 {
 
-	Mesh::Mesh(const VertexBuffer& VBO, const IndexBuffer& EBO, const VertexArray& VAO)
+	Mesh::Mesh(const std::shared_ptr<VertexBuffer>& VBO, const std::shared_ptr<IndexBuffer>& EBO, const std::shared_ptr<VertexArray>& VAO)
 	{
-		m_VBO = std::make_shared<VertexBuffer>(VBO);
-		m_EBO = std::make_shared<IndexBuffer>(EBO);
-		m_VAO = std::make_shared<VertexArray>(VAO);
+		m_VBO = VBO;
+		m_EBO = EBO;
+		m_VAO = VAO;
 
 		BufferLayout* layout = new BufferLayout{
 			{ ShaderDataType::Float3, "aPos"},

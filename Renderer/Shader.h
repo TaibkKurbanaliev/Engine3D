@@ -10,7 +10,7 @@ namespace Engine
 	{
 		Programm,
 		Fragment,
-		Vertex
+		Vert
 	};
 
 	struct ShaderProgramSource

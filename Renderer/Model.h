@@ -11,6 +11,7 @@ namespace Engine
 	class Model
 	{
 	public:
+		const char* UNIFORM_NAME = STRINGIFY(Model);
 		Model(const std::string& path);
 	private:
 		std::vector<Mesh> m_Meshes;

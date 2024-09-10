@@ -17,6 +17,8 @@ uniform Material material;
 
 void main()
 {
+	float ambientStrength = 0.1;
+	vec3 ambient = ambientStrength * vertColor.xyz;
 
 	outColor = texture(ourTexture,textureCoords) * vertColor;
 }

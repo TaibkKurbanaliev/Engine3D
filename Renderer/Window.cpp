@@ -75,14 +75,14 @@ namespace Engine
 		glEnable(GL_DEPTH_TEST);
 
 		float vertices[] = {
-			-0.5f,0.5f,-0.5f,	0.0f, 1.0f, 0.0f, 0.f,1.f,
-			0.5f,0.5f,-0.5f,	1.0f, 0.0f, 0.0f, 1.f,1.f,
-			0.5f,0.5f, 0.5f,	1.0f, 0.0f, 1.0f, 1.f, 0.f,
-			-0.5f,0.5f, 0.5f,	0.0f, 0.5f, 0.70f, 0.f, 0.f,
-			-0.5f,-0.5f, -0.5f,	0.0f, 0.3f, 1.0f, 1.f,0.f,
-			0.5f,-0.5f, -0.5f,	1.0f, 0.0f, .5f, 0.f,0.f,
-			0.5f,-0.5f, 0.5f,	1.0f, 0.5f, 0.0f, 0.f, 1.f,
-			-0.5f,-0.5f, 0.5f,	.5f, 0.3f, 0.0f, 1.f, 1.f
+			-0.5f,0.5f,-0.5f,	0.0f, 1.0f, 0.0f, 0,0,0,0.f,1.f,
+			0.5f,0.5f,-0.5f,	1.0f, 0.0f, 0.0f, 0,0,0, 1.f,1.f,
+			0.5f,0.5f, 0.5f,	1.0f, 0.0f, 1.0f, 0,0,0,1.f, 0.f,
+			-0.5f,0.5f, 0.5f,	0.0f, 0.5f, 0.70f,0,0,0, 0.f, 0.f,
+			-0.5f,-0.5f, -0.5f,	0.0f, 0.3f, 1.0f, 0,0,0,1.f,0.f,
+			0.5f,-0.5f, -0.5f,	1.0f, 0.0f, .5f, 0,0,0,0.f,0.f,
+			0.5f,-0.5f, 0.5f,	1.0f, 0.5f, 0.0f,0,0,0, 0.f, 1.f,
+			-0.5f,-0.5f, 0.5f,	.5f, 0.3f, 0.0f,0,0,0, 1.f, 1.f
 		};
 		unsigned int indices[] =
 		{
@@ -104,8 +104,8 @@ namespace Engine
 
 		BufferLayout* layout = new BufferLayout{
 			{ ShaderDataType::Float3, "aPos"},
-			{ ShaderDataType::Float3, "inNormals"},
 			{ ShaderDataType::Float3, "inColors"},
+			{ ShaderDataType::Float3, "inNormals"},
 			{ ShaderDataType::Float2, "inTextureCoords"}
 		};
 		
@@ -119,9 +119,7 @@ namespace Engine
 
 		glFrontFace(GL_CW);
 
-		model = std::make_shared<Model3D>("C:\\Users\\Kek\\Desktop\\CPP\\OpenGL Shooter\\Shaders\\Basic.vert", "C:\\Users\\Kek\\Desktop\\CPP\\OpenGL Shooter\\Shaders\\basic.frag");
-		gameObject1.SetModel(model);
-		gameObject2.SetModel(model);
+		m_Renderer = std::make_unique<Renderer>(Shader("C:\\Users\\Kek\\Desktop\\CPP\\OpenGL Shooter\\Shaders\\Basic.vert", "C:\\Users\\Kek\\Desktop\\CPP\\OpenGL Shooter\\Shaders\\basic.frag"));
 		glm::vec3 pos(0.5f, 0, 0);
 		glm::vec3 pos2(-0.5f, 0, 0);
 		glm::vec3 scale(0.3f);
@@ -185,7 +183,6 @@ namespace Engine
 		glm::vec3 rotation(-0.005, 0.001, 0);
 		gameObject1.SetRotation(rotation);
 		m_Renderer->Draw(camera, gameObject1, m_VertexArray);
-		
 
 		rotation = { 0.005, -0.001, 0 };
 		gameObject2.SetRotation(rotation);

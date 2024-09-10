@@ -163,7 +163,6 @@
     <ClCompile Include="glad.c" />
     <ClCompile Include="Core\Log.cpp" />
     <ClCompile Include="Core\Input.cpp" />
-    <ClCompile Include="GameObject\Model3D.cpp" />
     <ClCompile Include="GameObject\Object.cpp" />
     <ClCompile Include="Renderer\Renderer.cpp" />
     <ClCompile Include="Renderer\Shader.cpp" />
@@ -183,7 +182,6 @@
     <ClInclude Include="Core\Input.h" />
     <ClInclude Include="GameObject\GameObject.h" />
     <ClInclude Include="MainIncludes.h" />
-    <ClInclude Include="GameObject\Model3D.h" />
     <ClInclude Include="GameObject\Object.h" />
     <ClInclude Include="Renderer\Renderer.h" />
     <ClInclude Include="Renderer\VertexArray.h" />

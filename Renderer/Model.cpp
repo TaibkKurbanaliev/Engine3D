@@ -3,6 +3,11 @@
 
 namespace Engine
 {
+    Model::Model(const std::string& path)
+    {
+        LoadModel(path);
+    }
+
     void Model::LoadModel(const std::string& path)
     {
         Assimp::Importer importer;
@@ -77,11 +82,11 @@ namespace Engine
             textures.insert(textures.end(), specularMaps.begin(), specularMaps.end());
         }
 
-        VertexBuffer VBO(vertices.data(), vertices.size());
-        IndexBuffer EBO(indices.data(), sizeof(indices) / sizeof(uint32_t));
-        VertexArray VAO;
-        VAO.AddVertexBuffer(std::make_shared<VertexBuffer>(VBO));
-        VAO.SetIndexBuffer(std::make_shared<IndexBuffer>(EBO));
+        std::shared_ptr<VertexBuffer> VBO = std::make_shared<VertexBuffer>(vertices.data(), vertices.size());
+        std::shared_ptr<IndexBuffer> EBO = std::make_shared<IndexBuffer>(indices.data(), sizeof(indices) / sizeof(uint32_t));
+        std::shared_ptr<VertexArray> VAO = std::make_shared<VertexArray>();
+        VAO->AddVertexBuffer(VBO);
+        VAO->SetIndexBuffer(EBO);
 
         return Mesh(VBO, EBO, VAO);
     }
@@ -95,5 +100,7 @@ namespace Engine
             Texture texture(m_Directory.c_str());
             textures.push_back(texture);
         }
+
+        return textures;
     }
 }
